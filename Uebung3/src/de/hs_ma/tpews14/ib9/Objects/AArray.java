@@ -47,11 +47,10 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
 
  @Override
  public void put(K k, V v) {
-  if(root.equals(null)){
-   root = new Node(k, v);
-  }else{
-   root.right = new Node(k, v);
-  }
+	 //Problem wegen k
+	 if ( < root.getKey()){
+		 
+	 }
   
  }
 
@@ -130,5 +129,12 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
    this.right = right;
   }
   
+  public K getKey(){
+	  return key;
+  }
+  
+  public V getValue (){
+	  return value;
+  }
  }
 }

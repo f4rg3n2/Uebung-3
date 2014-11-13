@@ -105,9 +105,7 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
 
 		}
 		
-		public Node getLeft(){
-			return left;
-		}
+		// getLeft fehlt test
 		
 		public Node getRight(){
 			return right;

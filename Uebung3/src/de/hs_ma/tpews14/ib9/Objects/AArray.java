@@ -118,7 +118,7 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
 		}
 		
 		private void setRight (Node right){
-			this.left = left;
+			this.right = right;
 		}
 	}
 

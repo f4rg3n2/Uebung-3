@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package de.hs_ma.tpews14.ib9.Objects;
 
 import de.hs_ma.tpews14.ib9.Interface.AssociativeArray;

@@ -4,4 +4,5 @@ public interface AssociativeArray <T> {
 //du bist ein tester!
 	//adsasdad
 	//asdadasd
+	//test obs geht
 }

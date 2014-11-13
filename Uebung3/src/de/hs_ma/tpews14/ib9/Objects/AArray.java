@@ -96,6 +96,27 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
   // TODO Auto-generated method stub
   
  }
+ public AArray<K,V> getLeftTree() {
+		AArray<K,V> a = new AArray<K,V>();
+		a.root = root.left;
+		return a;
+	}
+
+	// linken Unterbaum setzen
+	public void setLeft(AArray <K,V> a ) {
+		root.left = a.root;
+	}
+
+	public AArray<K,V> getRightTree() {
+		AArray<K,V> a = new AArray<K,V>();
+		a.root = root.right;
+		return a;
+	}
+
+	public void setRight(AArray <K,V> a) {
+		root.right = a.root;
+	}
+
  
  class Node{
   public Node left;

@@ -1,6 +1,6 @@
 package de.hs_ma.tpews14.ib9.Interface;
 
-	public interface AssociativeArray <K,V> {
+public interface AssociativeArray <K,V> {
 
 		public void clear();
 		public boolean containsValue(V v);
@@ -16,4 +16,3 @@ package de.hs_ma.tpews14.ib9.Interface;
 		public void extractAll(K[]k);//noch kein Plan
 		public void map(BiConsumer<K, V> b);
 	}
-

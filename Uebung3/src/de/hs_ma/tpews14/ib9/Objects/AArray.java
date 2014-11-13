@@ -4,6 +4,11 @@ import de.hs_ma.tpews14.ib9.Interface.AssociativeArray;
 import de.hs_ma.tpews14.ib9.Interface.BiConsumer;
 
 public class AArray <K,V> implements AssociativeArray<K, V> {
+	
+	Node root;
+	public AArray() {
+		this.root = null;
+	}
 
 	@Override
 	public void clear() {
@@ -37,7 +42,11 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void put(K k, V v) {
-		// TODO Auto-generated method stub
+		if(root.equals(null)){
+			root = new Node(k, v);
+		}else{
+			root.right = new Node(k, v);
+		}
 		
 	}
 
@@ -80,6 +89,19 @@ public class AArray <K,V> implements AssociativeArray<K, V> {
 	@Override
 	public void map(BiConsumer<K, V> b) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	class Node{
+		public Node left;
+		public Node right;
+		private K key;
+		private V value;
+		public Node(K key, V value){
+			this.key = key;
+			this.value = value;
+
+		}
 		
 	}
 

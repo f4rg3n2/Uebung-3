@@ -7,7 +7,7 @@ public interface AssociativeArray <K,V> {
 		public void clear();
 		public boolean containsValue(V v);
 		public boolean containsKey(K k);
-		public K get(V v);
+		public V get(K k);
 		public boolean isEmpty();
 		public void put(K k, V v);
 		public void putAll(K[] k);//noch kein Plan

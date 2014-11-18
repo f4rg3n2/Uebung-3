@@ -25,20 +25,57 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public boolean containsValue(V v) {
-		// TODO Auto-generated method stub
-
-		return false;
+		if (root == null) {
+			return false;
+		}
+		if (v == root.getValue()) {
+			return true;
+		} else {
+			if (getLeftTree() != null) {
+				return getLeftTree().containsValue(v);
+			} else {
+				if (getRightTree() != null) {
+					return getRightTree().containsValue(v);
+				}
+			}
+			return false;
+		}
 	}
 
 	@Override
 	public boolean containsKey(K k) {
-		// TODO Auto-generated method stub
-		return false;
+		if (root == null) {
+			return false;
+		}
+		if (k == root.getKey()) {
+			return true;
+		} else {
+			if (getLeftTree() != null) {
+				return getLeftTree().containsKey(k);
+			} else {
+				if (getRightTree() != null) {
+					return getRightTree().containsKey(k);
+				}
+			}
+			return false;
+		}
 	}
 
 	@Override
-	public K get(V v) {
-		// TODO Auto-generated method stub
+	public V get(K k) {
+		if (containsKey(k)){
+			if (root.key ==k){
+				return root.getValue();
+			}else{
+				if(getLeftTree()!= null){
+					return getLeftTree().get(k);
+				}else{
+					if(getRightTree()!=null){
+						return getRightTree().get(k);
+					}
+				}
+			}
+		}
 		return null;
 	}
 
@@ -50,7 +87,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void put(K k, V v) {
-		Node node =new Node(k, v, null, null);
+		Node node = new Node(k, v, null, null);
 		// Problem wegen k
 		if (root == null) {
 			root = new Node(k, v, null, null);
@@ -76,9 +113,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			default:
 				// kommt nicht vor
 			}
-
 		}
-
 	}
 
 	@Override
@@ -202,41 +237,42 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		}
 
 		public int compareTo(Node k) {
-			if (hash <= k.hashCode()){
-				if (hash < k.hashCode()){
+			if (hash <= k.hashCode()) {
+				if (hash < k.hashCode()) {
 					return 1;
-				}else{
+				} else {
 					return 0;
 				}
-			}else{
+			} else {
 				return -1;
 			}
 		}
-		
-		@Override
-	    public int hashCode() {
-		    final int prime = 31;
-		    int result = 1;
-		    result = prime * result + ((getKey() == null) ? 0 : getKey().hashCode());
-		    return result;
-	    }
 
 		@Override
-	    public boolean equals(Object obj) {
-		    if (this == obj)
-			    return true;
-		    if (obj == null)
-			    return false;
-		    if (getClass() != obj.getClass())
-			    return false;
-		    AArray other = (AArray) obj;
-		    if (root == null) {
-			    if (other.root != null)
-				    return false;
-		    } else if (!root.equals(other.root))
-			    return false;
-		    return true;
-	    }
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result
+			        + ((getKey() == null) ? 0 : getKey().hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			AArray other = (AArray) obj;
+			if (root == null) {
+				if (other.root != null)
+					return false;
+			} else if (!root.equals(other.root))
+				return false;
+			return true;
+		}
 	}
 
 }

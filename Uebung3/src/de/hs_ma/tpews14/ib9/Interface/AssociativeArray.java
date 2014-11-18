@@ -10,7 +10,7 @@ public interface AssociativeArray <K,V> {
 		public V get(K k);
 		public boolean isEmpty();
 		public void put(K k, V v);
-		public void putAll(K[] k);//noch kein Plan
+		public void putAll(K[] k);//noch kein Pla
 		public void remove (K v);
 		public int size();
 		public void update(K k,V v);

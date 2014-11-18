@@ -63,14 +63,14 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public V get(K k) {
-		if (containsKey(k)){
-			if (root.key ==k){
+		if (containsKey(k)) {
+			if (root.key == k) {
 				return root.getValue();
-			}else{
-				if(getLeftTree()!= null){
+			} else {
+				if (getLeftTree() != null) {
 					return getLeftTree().get(k);
-				}else{
-					if(getRightTree()!=null){
+				} else {
+					if (getRightTree() != null) {
 						return getRightTree().get(k);
 					}
 				}
@@ -90,7 +90,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		Node node = new Node(k, v, null, null);
 		// Problem wegen k
 		if (root == null) {
-			root = new Node(k, v, null, null);
+			root = node;
 		} else {
 			switch (node.compareTo(root)) {
 			case 0:
@@ -98,20 +98,20 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return;
 			case -1:// Wir müssen nach links
 				if (root.left == null) {
-					this.setLeft(new AArray<K, V>());
+					root.left = node;
 				} else {
 					this.getLeftTree().put(k, v);
 				}
 				break;
 			case 1:// wir müssen nach rechts
 				if (root.right == null) {
-					this.setRight(new AArray<K, V>());
+					root.right = node;
 				} else {
 					this.getRightTree().put(k, v);
 				}
 				break;
 			default:
-				// kommt nicht vor
+
 			}
 		}
 	}
@@ -126,6 +126,18 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	public void remove(K k) {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void print() {
+		ausgabe(root, 0);
+	}
+
+	public void ausgabe(Node n, int level) {
+		if (n != null) {
+			System.out.println("level: "+level+", "+n.key + ", " + n.value+", Hashcode: "+ n.hash);
+			this.ausgabe(n.left, level + 1);
+			this.ausgabe(n.right, level + 1);
+		}
 	}
 
 	@Override
@@ -143,14 +155,14 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void update(K k, V v) {
-		if (containsKey(k)){
-			if (root.key ==k){
+		if (containsKey(k)) {
+			if (root.key == k) {
 				root.setValue(v);
-			}else{
-				if(getLeftTree()!= null){
-					getLeftTree().update(k,v);
-				}else{
-					if(getRightTree()!=null){
+			} else {
+				if (getLeftTree() != null) {
+					getLeftTree().update(k, v);
+				} else {
+					if (getRightTree() != null) {
 						getRightTree().update(k, v);
 					}
 				}
@@ -201,7 +213,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		root.right = a.root;
 	}
 
-	class Node {
+	public class Node {
 		public Node left;
 		public Node right;
 		private K key;
@@ -215,9 +227,9 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			this.right = right;
 			this.hash = hashCode();
 		}
-		
-		public void setValue(V v){
-			value=v;
+
+		public void setValue(V v) {
+			value = v;
 		}
 
 		public K getKey() {
@@ -239,12 +251,12 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		public int compareTo(Node k) {
 			if (hash <= k.hashCode()) {
 				if (hash < k.hashCode()) {
-					return 1;
+					return -1;
 				} else {
 					return 0;
 				}
 			} else {
-				return -1;
+				return 1;
 			}
 		}
 

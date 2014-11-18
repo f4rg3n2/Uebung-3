@@ -194,8 +194,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		// TODO Auto-generated method stub
 
 	}
-	
-	
 
 	class Node {
 		public Node left;
@@ -251,6 +249,31 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				}
 			}
 		}
+		
+		@Override
+	    public int hashCode() {
+		    final int prime = 31;
+		    int result = 1;
+		    result = prime * result + ((getKey() == null) ? 0 : getKey().hashCode());
+		    return result;
+	    }
+
+		@Override
+	    public boolean equals(Object obj) {
+		    if (this == obj)
+			    return true;
+		    if (obj == null)
+			    return false;
+		    if (getClass() != obj.getClass())
+			    return false;
+		    AArray other = (AArray) obj;
+		    if (root == null) {
+			    if (other.root != null)
+				    return false;
+		    } else if (!root.equals(other.root))
+			    return false;
+		    return true;
+	    }
 	}
 
 }

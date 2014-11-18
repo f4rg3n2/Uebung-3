@@ -143,8 +143,19 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void update(K k, V v) {
-
-		
+		if (containsKey(k)){
+			if (root.key ==k){
+				root.setValue(v);
+			}else{
+				if(getLeftTree()!= null){
+					getLeftTree().update(k,v);
+				}else{
+					if(getRightTree()!=null){
+						getRightTree().update(k, v);
+					}
+				}
+			}
+		}
 	}
 
 	@Override
@@ -203,6 +214,10 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			this.left = left;
 			this.right = right;
 			this.hash = hashCode();
+		}
+		
+		public void setValue(V v){
+			value=v;
 		}
 
 		public K getKey() {

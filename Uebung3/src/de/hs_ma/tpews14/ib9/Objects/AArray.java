@@ -144,10 +144,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	@Override
 	public void update(K k, V v) {
 
-		if (get(v) == v) {
-		} else {
-
-		}
+		
 	}
 
 	@Override
@@ -191,18 +188,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	public void setRight(AArray<K, V> a) {
 		root.right = a.root;
-	}
-
-	@Override
-	public void forEach(java.util.function.BiConsumer<K, V> b) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void map(java.util.function.BiConsumer<K, V> b) {
-		// TODO Auto-generated method stub
-
 	}
 
 	class Node {

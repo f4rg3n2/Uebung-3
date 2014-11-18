@@ -55,7 +55,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		if (root == null) {
 			root = new Node(k, v, null, null);
 		} else {
-			switch (node.getKey().compareTo(root.getKey())) {
+			switch (node.compareTo(root)) {
 			case 0:
 				// nichts zu tun
 				return;
@@ -158,31 +158,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		root.right = a.root;
 	}
 
-//	private int compareTo(int k, int s) {
-//
-//		if (k <= s) {
-//			if (k < s) {
-//				return -1;
-//			} else {
-//				return 0;
-//			}
-//		} else {
-//			return 1;
-//		}
-//	}
-//
-//	private int compareTo(String k, String s) {
-//		if (k.length() <= s.length()) {
-//			if (k.length() < s.length()) {
-//				return -1;
-//			} else {
-//				return 0;
-//			}
-//		} else {
-//			return 1;
-//		}
-//	}
-
 	@Override
 	public void forEach(java.util.function.BiConsumer<K, V> b) {
 		// TODO Auto-generated method stub
@@ -200,12 +175,14 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		public Node right;
 		private K key;
 		private V value;
+		private int hash;
 
 		public Node(K key, V value, Node left, Node right) {
 			this.key = key;
 			this.value = value;
 			this.left = left;
 			this.right = right;
+			this.hash = hashCode();
 		}
 
 		public K getKey() {
@@ -224,29 +201,15 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			return left;
 		}
 
-		public int compareTo(K k) {
-			if (k instanceof Number) {
-				Integer tmp = (Integer) k;
-				if (tmp.compareTo((Integer) k) <= 0) {
-					if (tmp.compareTo((Integer) k) < 0) {
-						return -1;
-					} else {
-						return 0;
-					}
-				} else {
+		public int compareTo(Node k) {
+			if (hash <= k.hashCode()){
+				if (hash < k.hashCode()){
 					return 1;
+				}else{
+					return 0;
 				}
-			} else {
-				String tmp = (String) k;
-				if (tmp.compareTo((String) k) <= 0) {
-					if (tmp.compareTo((String) k) < 0) {
-						return -1;
-					} else {
-						return 0;
-					}
-				} else {
-					return 1;
-				}
+			}else{
+				return -1;
 			}
 		}
 		

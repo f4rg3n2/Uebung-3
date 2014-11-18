@@ -11,7 +11,7 @@ public interface AssociativeArray <K,V> {
 		public void putAll(K[] k);//noch kein Plan
 		public void remove (K v);
 		public int size();
-		public void update();
+		public void update(K k,V v);
 		public void forEach(BiConsumer <K,V> b);
 		public void extractAll(K[]k);//noch kein Plan
 		public void map(BiConsumer<K, V> b);

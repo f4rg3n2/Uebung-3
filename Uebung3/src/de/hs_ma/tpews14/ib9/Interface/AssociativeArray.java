@@ -1,5 +1,7 @@
 package de.hs_ma.tpews14.ib9.Interface;
 
+import java.util.function.BiConsumer;
+
 public interface AssociativeArray <K,V> {
 
 		public void clear();

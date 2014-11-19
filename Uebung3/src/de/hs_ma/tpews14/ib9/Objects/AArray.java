@@ -47,19 +47,37 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		if (root == null) {
 			return false;
 		}
-		if (k == root.getKey()) {
+		if (root.getKey() == k) {
 			return true;
 		} else {
-			if (getLeftTree() != null) {
+			if (k.hashCode() < root.hash) {
 				return getLeftTree().containsKey(k);
 			} else {
-				if (getRightTree() != null) {
+				if (k.hashCode() > root.hash) {
 					return getRightTree().containsKey(k);
 				}
 			}
 			return false;
 		}
 	}
+
+	//
+	//
+	// if (root == null) {
+	// return false;
+	// }
+	// if (k == root.getKey()) {
+	// return true;
+	// } else {
+	// if (getLeftTree() != null) {
+	// return getLeftTree().containsKey(k);
+	// } else {
+	// if (getRightTree() != null) {
+	// return getRightTree().containsKey(k);
+	// }
+	// }
+	// return false;
+	// }
 
 	@Override
 	public V get(K k) {
@@ -134,7 +152,8 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	public void ausgabe(Node n, int level) {
 		if (n != null) {
-			System.out.println("level: "+level+", "+n.key + ", " + n.value+", Hashcode: "+ n.hash);
+			System.out.println("level: " + level + ", " + n.key + ", "
+			        + n.value + ", Hashcode: " + n.hash);
 			this.ausgabe(n.left, level + 1);
 			this.ausgabe(n.right, level + 1);
 		}

@@ -18,13 +18,14 @@ public class Test {
 		
 		
 		a.put("hallo", "gfsdaa");
-		a.put("asaallo", "gfsdaa");
+		a.put("asaallo", "gfsdaaa");
 		a.put("asdgdhallo", "uhzgtrsdaa");
 		a.put("jhgtfhallo", "lokijusdaa");
 		a.put("hgfhallo", "w3ertsdaa");
 	
-		//a.print();
-		System.out.println(a.containsKey("hgfhallo"));
+		a.print();
+		System.out.println(a.containsKey("asdgdhallo"));
+		System.out.println(a.containsValue("w3ertsdaa"));
 		
 		
 	}

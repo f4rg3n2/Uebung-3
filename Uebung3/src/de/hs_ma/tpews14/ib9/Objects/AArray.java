@@ -35,29 +35,29 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		} else {
 			if (getLeftTree() != null) {
 				found = getLeftTree().containsValue(v);
-			} if (getRightTree() != null) {
-					found = (found || getRightTree().containsValue(v));
-				}
 			}
-			return found;
+			if (getRightTree() != null) {
+				found = (found || getRightTree().containsValue(v));
+			}
 		}
+		return found;
+	}
 
-		// if (root == null) {
-		// return false;
-		// }
-		// if (root.getValue() == v) {
-		// return true;
-		// } else {
-		// if (getLeftTree() != null) {
-		// return getLeftTree().containsValue(v);
-		// } else {
-		// if (getRightTree() != null) {
-		// return getRightTree().containsValue(v);
-		// }
-		// }
-		// return false;
-		// }
-	
+	// if (root == null) {
+	// return false;
+	// }
+	// if (root.getValue() == v) {
+	// return true;
+	// } else {
+	// if (getLeftTree() != null) {
+	// return getLeftTree().containsValue(v);
+	// } else {
+	// if (getRightTree() != null) {
+	// return getRightTree().containsValue(v);
+	// }
+	// }
+	// return false;
+	// }
 
 	@Override
 	public boolean containsKey(K k) {
@@ -138,13 +138,55 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	@Override
 	public void putAll(K[] k) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void remove(K k) {
+	public V remove(K k) {
 		
+		if (root == null) {
+			return null;
+		}
+		AArray<K, V> leftSubTree = this.getLeftTree();
+		AArray<K, V> rightSubTree = this.getRightTree();
 
+		Node node = new Node(k, null, null, null);
+		switch (node.compareTo(root)) {
+		
+		case 0:
+			
+			if (root.left == null) {
+				root = root.right;
+			} else {
+				if (root.right == null) {
+					root = root.left;
+				} else {
+					
+					Node n = leftSubTree.root;
+					while (n.right != null) {
+						n = n.right;
+					}
+					K key = n.getKey();
+					leftSubTree.remove(key);
+					root = n;
+					n.left = leftSubTree.root;
+					n.right = rightSubTree.root;
+					
+				}
+			}
+			break;
+		case 1: 
+			rightSubTree.remove(k);
+			root.right = rightSubTree.root;
+			break;
+		case -1:
+			leftSubTree.remove(k);
+			root.left = leftSubTree.root;
+			break;
+		default:
+			
+		}
+		return null;
 	}
 
 	public void print() {
@@ -192,9 +234,16 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void forEach(BiConsumer<K, V> b) {
-		
-		// TODO Auto-generated method stub
-		b.accept(key, value);
+		if (root != null) {
+			if (getLeftTree() != null) {
+				b.accept(root.key, root.value);
+				getLeftTree().forEach(b);
+			}
+			if (getRightTree() != null) {
+				b.accept(root.key, root.value);
+				getRightTree().forEach(b);
+			}
+		}
 	}
 
 	@Override
@@ -208,7 +257,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void map(BiFunction<K, V> b) {
+	public void map(BiFunction<K, V, R> b) {
 		// TODO Auto-generated method stub
 
 	}

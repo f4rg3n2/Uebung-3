@@ -1,6 +1,7 @@
 package de.hs_ma.tpews14.ib9.Objects;
 
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 
 import de.hs_ma.tpews14.ib9.Interface.AssociativeArray;
 
@@ -25,22 +26,38 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public boolean containsValue(V v) {
+		boolean found = false;
 		if (root == null) {
 			return false;
 		}
-		if (v == root.getValue()) {
+		if (root.getValue() == v) {
 			return true;
 		} else {
 			if (getLeftTree() != null) {
-				return getLeftTree().containsValue(v);
-			} else {
-				if (getRightTree() != null) {
-					return getRightTree().containsValue(v);
+				found = getLeftTree().containsValue(v);
+			} if (getRightTree() != null) {
+					found = (found || getRightTree().containsValue(v));
 				}
 			}
-			return false;
+			return found;
 		}
-	}
+
+		// if (root == null) {
+		// return false;
+		// }
+		// if (root.getValue() == v) {
+		// return true;
+		// } else {
+		// if (getLeftTree() != null) {
+		// return getLeftTree().containsValue(v);
+		// } else {
+		// if (getRightTree() != null) {
+		// return getRightTree().containsValue(v);
+		// }
+		// }
+		// return false;
+		// }
+	
 
 	@Override
 	public boolean containsKey(K k) {
@@ -60,24 +77,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			return false;
 		}
 	}
-
-	//
-	//
-	// if (root == null) {
-	// return false;
-	// }
-	// if (k == root.getKey()) {
-	// return true;
-	// } else {
-	// if (getLeftTree() != null) {
-	// return getLeftTree().containsKey(k);
-	// } else {
-	// if (getRightTree() != null) {
-	// return getRightTree().containsKey(k);
-	// }
-	// }
-	// return false;
-	// }
 
 	@Override
 	public V get(K k) {
@@ -116,6 +115,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return;
 			case -1:// Wir müssen nach links
 				if (root.left == null) {
+					node.setParent(root);
 					root.left = node;
 				} else {
 					this.getLeftTree().put(k, v);
@@ -123,6 +123,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				break;
 			case 1:// wir müssen nach rechts
 				if (root.right == null) {
+					node.setParent(root);
 					root.right = node;
 				} else {
 					this.getRightTree().put(k, v);
@@ -137,12 +138,12 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	@Override
 	public void putAll(K[] k) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public void remove(K k) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -178,10 +179,10 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			if (root.key == k) {
 				root.setValue(v);
 			} else {
-				if (getLeftTree() != null) {
+				if (k.hashCode() < root.hash) {
 					getLeftTree().update(k, v);
 				} else {
-					if (getRightTree() != null) {
+					if (k.hashCode() > root.hash) {
 						getRightTree().update(k, v);
 					}
 				}
@@ -191,8 +192,9 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void forEach(BiConsumer<K, V> b) {
+		
 		// TODO Auto-generated method stub
-
+		b.accept(key, value);
 	}
 
 	@Override
@@ -206,7 +208,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void map(BiConsumer<K, V> b) {
+	public void map(BiFunction<K, V> b) {
 		// TODO Auto-generated method stub
 
 	}
@@ -214,6 +216,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	public AArray<K, V> getLeftTree() {
 		AArray<K, V> a = new AArray<K, V>();
 		a.root = root.left;
+
 		return a;
 	}
 
@@ -238,6 +241,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		private K key;
 		private V value;
 		private int hash;
+		private Node parent;
 
 		public Node(K key, V value, Node left, Node right) {
 			this.key = key;
@@ -245,6 +249,14 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			this.left = left;
 			this.right = right;
 			this.hash = hashCode();
+		}
+
+		public void setParent(Node parent) {
+			this.parent = parent;
+		}
+
+		public Node getParent() {
+			return parent;
 		}
 
 		public void setValue(V v) {
@@ -304,6 +316,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return false;
 			return true;
 		}
+
 	}
 
 }

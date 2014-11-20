@@ -32,7 +32,7 @@ public class Test {
 		
 		
 		
-		System.out.println(a.remove("h"));
+		System.out.println(a.remove("a"));
 		a.print();
 		
 		

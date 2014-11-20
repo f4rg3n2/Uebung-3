@@ -140,9 +140,11 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	
 	@Override
 	public V remove(K k) {
+		final V v = get(k);
 		
 		if (root == null) {
 			return null;
@@ -151,17 +153,16 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		AArray<K, V> rightSubTree = this.getRightTree();
 
 		Node node = new Node(k, null, null, null);
-		switch (node.compareTo(root)) {
-		
+		switch (node.compareTo(root)) { 
 		case 0:
-			
 			if (root.left == null) {
 				root = root.right;
+				
 			} else {
-				if (root.right == null) {
+				if (root.right == null){
 					root = root.left;
-				} else {
 					
+				} else {
 					Node n = leftSubTree.root;
 					while (n.right != null) {
 						n = n.right;
@@ -171,23 +172,30 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 					root = n;
 					n.left = leftSubTree.root;
 					n.right = rightSubTree.root;
-					
+
 				}
 			}
 			break;
 		case 1: 
+			
 			rightSubTree.remove(k);
 			root.right = rightSubTree.root;
+			
 			break;
 		case -1:
+
 			leftSubTree.remove(k);
 			root.left = leftSubTree.root;
+			
 			break;
 		default:
-			
 		}
-		return null;
+		return v;
 	}
+	
+	
+	
+	
 
 	public void print() {
 		ausgabe(root, 0);

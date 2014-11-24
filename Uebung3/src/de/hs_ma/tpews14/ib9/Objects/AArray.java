@@ -136,16 +136,9 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void putAll(K[] k) {
-		// TODO Auto-generated method stub
-
-	}
-	
-	
-	@Override
 	public V remove(K k) {
 		final V v = get(k);
-		
+
 		if (root == null) {
 			return null;
 		}
@@ -153,15 +146,15 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		AArray<K, V> rightSubTree = this.getRightTree();
 
 		Node node = new Node(k, null, null, null);
-		switch (node.compareTo(root)) { 
+		switch (node.compareTo(root)) {
 		case 0:
 			if (root.left == null) {
 				root = root.right;
-				
+
 			} else {
-				if (root.right == null){
+				if (root.right == null) {
 					root = root.left;
-					
+
 				} else {
 					Node n = leftSubTree.root;
 					while (n.right != null) {
@@ -176,26 +169,22 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				}
 			}
 			break;
-		case 1: 
-			
+		case 1:
+
 			rightSubTree.remove(k);
 			root.right = rightSubTree.root;
-			
+
 			break;
 		case -1:
 
 			leftSubTree.remove(k);
 			root.left = leftSubTree.root;
-			
+
 			break;
 		default:
 		}
 		return v;
 	}
-	
-	
-	
-	
 
 	public void print() {
 		ausgabe(root, 0);
@@ -242,32 +231,58 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void forEach(BiConsumer<K, V> b) {
-		if (root != null) {
-			if (getLeftTree() != null) {
-				b.accept(root.key, root.value);
-				getLeftTree().forEach(b);
-			}
-			if (getRightTree() != null) {
-				b.accept(root.key, root.value);
-				getRightTree().forEach(b);
-			}
-		}
-	}
-
-	@Override
-	public void extractAll(K[] k) {
-		// TODO Auto-generated method stub
 		if (root == null) {
-
+			return;
 		} else {
-
+			b.accept(root.key, root.value);
+		}
+		if (root.left != null) {
+			getLeftTree().forEach(b);
+		}
+		if (root.right != null) {
+			getRightTree().forEach(b);
 		}
 	}
 
 	@Override
-	public void map(BiFunction<K, V, R> b) {
-		// TODO Auto-generated method stub
+	public void putAll(AArray<K, V> b) {
+		if (b.root != null) {
+			put(b.root.getKey(), b.root.getValue());
 
+			if (root.left != null) {
+				putAll(b.getLeftTree());
+			}
+			if (root.right != null) {
+				putAll(b.getRightTree());
+			}
+		}
+
+		// BiConsumer<K,V> bi = (x,y) ->{
+		// put(b.root.getKey(),b.root.getValue());
+		//
+		// };
+		// forEach(bi);
+	}
+
+	@Override
+	public void extractAll(AArray<K, V> b) {
+		// TODO Auto-generated method stub
+		b.putAll(this);
+	}
+
+	@Override
+	public void map(BiFunction<K, V, AArray<K, V>> b) {	
+		if (root == null) {
+			return;
+		} else {
+			b.apply(root.key, root.value);
+		}
+		if (root.left != null) {
+			getLeftTree().map(b);
+		}
+		if (root.right != null) {
+			getRightTree().map(b);
+		}
 	}
 
 	public AArray<K, V> getLeftTree() {

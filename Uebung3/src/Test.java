@@ -1,5 +1,3 @@
-import static org.junit.Assert.*;
-
 import java.util.function.BiConsumer;
 
 import de.hs_ma.tpews14.ib9.Objects.AArray;
@@ -14,11 +12,6 @@ public class Test {
 		//Node blubber =new Node(tmp, giraffe, null, null);
 		AArray<String, String> a = new AArray<>();
 		AArray<String,String> tree = new AArray<>();
-		
-		AArray<String, String>.Node n = a.new Node(tmp, giraffe, null, null);
-		//AArray<String, String>.Node b = a.new Node("stinkt", "Jens", null, null);
-		AArray<String, String>.Node v = a.new Node("asaws", "dfsasd", null, null);
-		AArray<String, String>.Node c = a.new Node("gfees", "iklöökk", null, null);
 		
 		BiConsumer<String, String> biConsumer = (x, y) -> {
 		      System.out.print(x);
@@ -48,13 +41,13 @@ public class Test {
 	
 		
 		
-//		a.print();
+//		a.toString();
 //		System.out.println();
 //		System.out.println(a.remove("a"));
-		a.putAll(tree);
-		a.print();
+//		a.putAll(tree);
+		System.out.println(a);
 //		a.extractAll(tree);
-//		tree.print();
+//		tree.toString();
 //		a.forEach(biConsumer);
 		
 		

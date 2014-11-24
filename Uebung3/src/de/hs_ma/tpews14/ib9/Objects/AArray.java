@@ -185,18 +185,42 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		}
 		return v;
 	}
-
-	public void print() {
-		ausgabe(root, 0);
+	
+	@Override
+	public String toString() {
+		return "{"+ ausgabe(root)+ "}";
 	}
 
-	public void ausgabe(Node n, int level) {
-		if (n != null) {
-			System.out.println("level: " + level + ", " + n.key + ", "
-			        + n.value + ", Hashcode: " + n.hash);
-			this.ausgabe(n.left, level + 1);
-			this.ausgabe(n.right, level + 1);
+	public String ausgabe(Node n) {
+		String str = "";
+
+		if(n == null){
+			return str;
 		}
+		str += n;
+		str += ausgabe(n.left)+ ausgabe(n.right);
+		return str;
+//		if(root!=null){
+//		if(root.left!=null){
+//			ausgabe += root;
+//			return ausgabe(root.left, ausgabe);
+//		}
+//		if(root.right!=null){
+//			ausgabe += root;
+//			return ausgabe(t.getRightTree(),ausgabe);
+//		}
+//		
+//		if (root != null) {
+//			System.out.println("level: " + level + ", " + n.key + ", "
+//			        + n.value + ", Hashcode: " + n.hash);
+//			getLeftTree().ausgabe(ausgabe);
+//			getRightTree().ausgabe(ausgabe);
+//		}
+//		}return ausgabe;
+//		
+
+			
+		
 	}
 
 	@Override
@@ -307,7 +331,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		root.right = a.root;
 	}
 
-	public class Node {
+	private class Node {
 		public Node left;
 		public Node right;
 		private K key;
@@ -331,7 +355,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			return parent;
 		}
 
-		public void setValue(V v) {
+		private void setValue(V v) {
 			value = v;
 		}
 
@@ -350,6 +374,12 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		public Node getLeft() {
 			return left;
 		}
+		
+		@Override
+		public String toString() {
+		    // TODO Auto-generated method stub
+		    return (String)key+"="+(String)value+", ";
+		}
 
 		public int compareTo(Node k) {
 			if (hash <= k.hashCode()) {
@@ -361,6 +391,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			} else {
 				return 1;
 			}
+			
 		}
 
 		@Override
@@ -380,7 +411,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			AArray other = (AArray) obj;
+			AArray<K,V> other = (AArray<K,V>) obj;
 			if (root == null) {
 				if (other.root != null)
 					return false;

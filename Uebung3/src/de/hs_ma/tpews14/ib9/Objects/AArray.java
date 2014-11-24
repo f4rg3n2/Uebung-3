@@ -200,27 +200,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		str += n;
 		str += ausgabe(n.left)+ ausgabe(n.right);
 		return str;
-//		if(root!=null){
-//		if(root.left!=null){
-//			ausgabe += root;
-//			return ausgabe(root.left, ausgabe);
-//		}
-//		if(root.right!=null){
-//			ausgabe += root;
-//			return ausgabe(t.getRightTree(),ausgabe);
-//		}
-//		
-//		if (root != null) {
-//			System.out.println("level: " + level + ", " + n.key + ", "
-//			        + n.value + ", Hashcode: " + n.hash);
-//			getLeftTree().ausgabe(ausgabe);
-//			getRightTree().ausgabe(ausgabe);
-//		}
-//		}return ausgabe;
-//		
-
-			
-		
+	
 	}
 
 	@Override
@@ -377,8 +357,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		
 		@Override
 		public String toString() {
-		    // TODO Auto-generated method stub
-		    return (String)key+"="+(String)value+", ";
+		    return key+"="+value+", ";
 		}
 
 		public int compareTo(Node k) {

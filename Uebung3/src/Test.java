@@ -1,6 +1,8 @@
 import java.util.function.BiConsumer;
 
 import de.hs_ma.tpews14.ib9.Objects.AArray;
+import de.hs_ma.tpews14.ib9.Objects.IntegerAssociativeArray;
+import de.hs_ma.tpews14.ib9.Objects.StringAssociativeArray;
 
 
 public class Test {
@@ -10,8 +12,9 @@ public class Test {
 		String tmp = "affe";
 		String giraffe  = "giraffe";
 		//Node blubber =new Node(tmp, giraffe, null, null);
-		AArray<String, String> a = new AArray<>();
+		StringAssociativeArray a = new StringAssociativeArray();
 		AArray<String,String> tree = new AArray<>();
+		IntegerAssociativeArray intTree = new IntegerAssociativeArray();
 		
 		BiConsumer<String, String> biConsumer = (x, y) -> {
 		      System.out.print(x);
@@ -20,7 +23,8 @@ public class Test {
 		      System.out.println();
 		    };
 		
-		
+		intTree.put(1, 2);
+		System.out.println(intTree);
 		a.put("h", "w3ea");
 		a.put("o", "gfsdaa");
 		a.put("d", "gfsdaaa");

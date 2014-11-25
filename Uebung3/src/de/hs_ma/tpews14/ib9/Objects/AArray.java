@@ -101,7 +101,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return;
 			case -1:// Wir müssen nach links
 				if (root.left == null) {
-					node.setParent(root);
+					
 					root.left = node;
 				} else {
 					this.getLeftTree().put(k, v);
@@ -109,7 +109,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				break;
 			case 1:// wir müssen nach rechts
 				if (root.right == null) {
-					node.setParent(root);
+					
 					root.right = node;
 				} else {
 					this.getRightTree().put(k, v);
@@ -287,7 +287,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		private K key;
 		private V value;
 		private int hash;
-		private Node parent;
 
 		public Node(K key, V value, Node left, Node right) {
 			this.key = key;
@@ -295,14 +294,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			this.left = left;
 			this.right = right;
 			this.hash = hashCode();
-		}
-
-		public void setParent(Node parent) {
-			this.parent = parent;
-		}
-
-		public Node getParent() {
-			return parent;
 		}
 
 		private void setValue(V v) {

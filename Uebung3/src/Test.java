@@ -19,6 +19,7 @@ public class Test {
 		AArray<String,String> tree = new AArray<>();
 		IntegerAssociativeArray intTree = new IntegerAssociativeArray();
 		Dictionary dict = new Dictionary();
+		AArray<String,String> tree2 = new AArray<>();
 		
 //		BiConsumer<String, String> biConsumer = (x, y) -> {
 //		      System.out.print(x);
@@ -30,7 +31,7 @@ public class Test {
 		 
 		
 		
-		intTree.put(1, 2);
+//		intTree.put(1, 2);
 //		System.out.println(intTree);
 		a.put("h", "w3ea");
 		a.put("o", "gfsdaa");
@@ -43,25 +44,31 @@ public class Test {
 		dict.put("f", "wrtsdaa");
 		dict.put("g", "rtsdaaa");
 		
-		
 		tree.put("l", "w3era");
 		tree.put("i", "etsaa");
 		tree.put("k", "waaasdwa2");
 		tree.put("m", "22waa");
 		tree.put("n", "34waa");
 		tree.put("c", "5665waa");
-	
-		dict.keys();
-		for (int i = 0; i < dict.keys().length; i++) {
-	        System.out.print(dict.keys()[i]+"\t");
-	        
-        }
-		System.out.println();
 		
-		dict.values();
-		for (int i = 0; i < dict.values().length; i++) {
-	        System.out.print(dict.values()[i]+"\t");
-        }
+		a.update("h","wa");
+		a.update("o","sadwasdwa");
+		a.update("h", "asda");
+		
+		
+		System.out.println(tree2.isEmpty());
+	
+//		dict.keys();
+//		for (int i = 0; i < dict.keys().length; i++) {
+//	        System.out.print(dict.keys()[i]+"\t");
+//	        
+//        }
+//		System.out.println();
+//		
+//		dict.values();
+//		for (int i = 0; i < dict.values().length; i++) {
+//	        System.out.print(dict.values()[i]+"\t");
+//        }
 //		a.toString();
 //		System.out.println();
 //		System.out.println(a.remove("a"));

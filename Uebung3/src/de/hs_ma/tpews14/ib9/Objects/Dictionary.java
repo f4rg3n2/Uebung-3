@@ -21,7 +21,7 @@ public class Dictionary extends AArray<String, String> {
 		 forEach(biConsumer);
 		 String[] keyArray = new String[list.size()];
 		 return list.toArray(keyArray);
-		// return keyArray;
+		
 	}
 	
 	public String[] values(){
@@ -32,7 +32,8 @@ public class Dictionary extends AArray<String, String> {
 		 forEach(biConsumer);
 		 String[] valueArray = new String[list.size()];
 		 return list.toArray(valueArray);
-		// return keyArray
+		
 	}
+		
 	
 }

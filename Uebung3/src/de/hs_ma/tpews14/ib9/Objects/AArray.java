@@ -98,8 +98,11 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return root.equals(null);
+		if (root == null){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	@Override

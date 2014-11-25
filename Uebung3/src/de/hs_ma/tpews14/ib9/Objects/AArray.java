@@ -20,7 +20,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
 		root = null;
 	}
 
@@ -43,39 +42,23 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return found;
 	}
 
-	// if (root == null) {
-	// return false;
-	// }
-	// if (root.getValue() == v) {
-	// return true;
-	// } else {
-	// if (getLeftTree() != null) {
-	// return getLeftTree().containsValue(v);
-	// } else {
-	// if (getRightTree() != null) {
-	// return getRightTree().containsValue(v);
-	// }
-	// }
-	// return false;
-	// }
-
 	@Override
 	public boolean containsKey(K k) {
+		boolean found = false;
 		if (root == null) {
 			return false;
 		}
 		if (root.getKey() == k) {
 			return true;
 		} else {
-			if (k.hashCode() < root.hash) {
-				return getLeftTree().containsKey(k);
-			} else {
-				if (k.hashCode() > root.hash) {
-					return getRightTree().containsKey(k);
-				}
+			if (getLeftTree() != null) {
+				found = getLeftTree().containsKey(k);
 			}
-			return false;
+			if (getRightTree() != null) {
+				found = (found || getRightTree().containsKey(k));
+			}
 		}
+		return found;
 	}
 
 	@Override
@@ -84,10 +67,10 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			if (root.key == k) {
 				return root.getValue();
 			} else {
-				if (getLeftTree() != null) {
+				if (k.hashCode() < root.hash) {
 					return getLeftTree().get(k);
 				} else {
-					if (getRightTree() != null) {
+					if (k.hashCode() > root.hash) {
 						return getRightTree().get(k);
 					}
 				}
@@ -98,9 +81,9 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	@Override
 	public boolean isEmpty() {
-		if (root == null){
+		if (root == null) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -136,6 +119,11 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 			}
 		}
+	}
+
+	@Override
+	public void putAll(AArray<K, V> b) {
+		b.forEach((key, value) -> this.put(key, value));
 	}
 
 	@Override
@@ -188,23 +176,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		}
 		return v;
 	}
-	
-	@Override
-	public String toString() {
-		return "{"+ ausgabe(root)+ "}";
-	}
-
-	public String ausgabe(Node n) {
-		String str = "";
-
-		if(n == null){
-			return str;
-		}
-		str += n;
-		str += ausgabe(n.left)+ ausgabe(n.right);
-		return str;
-	
-	}
 
 	@Override
 	public int size() {
@@ -252,43 +223,43 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void putAll(AArray<K, V> b) {
-		if (b.root != null) {
-			put(b.root.getKey(), b.root.getValue());
-
-			if (root.left != null) {
-				putAll(b.getLeftTree());
-			}
-			if (root.right != null) {
-				putAll(b.getRightTree());
-			}
-		}
-	}
-
-	@Override
 	public void extractAll(AArray<K, V> b) {
 		b.putAll(this);
 	}
-	
-	
+
 	@Override
-	public AArray<K,V> map(BiFunction<K, V, V> bi) {	
+	public AArray<K, V> map(BiFunction<K, V, V> bi) {
 		AArray<K, V> tree = new AArray<K, V>();
 		return this.map(this.root, bi, tree);
 	}
 
-
-	public AArray<K, V> map(Node n, BiFunction<K,V,V> bi, AArray<K,V> tree){
-		if (n != null){
+	public AArray<K, V> map(Node n, BiFunction<K, V, V> bi, AArray<K, V> tree) {
+		if (n != null) {
 			tree.put(n.getKey(), bi.apply(n.getKey(), n.getValue()));
-		
-		this.map(n.left,bi,tree);
-		this.map(n.right,bi,tree);
+
+			this.map(n.left, bi, tree);
+			this.map(n.right, bi, tree);
 		}
 		return tree;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "{" + ausgabe(root) + "}";
+	}
+
+	public String ausgabe(Node n) {
+		String str = "";
+
+		if (n == null) {
+			return str;
+		}
+		str += n;
+		str += ausgabe(n.left) + ausgabe(n.right);
+		return str;
+
+	}
+
 	public AArray<K, V> getLeftTree() {
 		AArray<K, V> a = new AArray<K, V>();
 		a.root = root.left;
@@ -296,7 +267,6 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return a;
 	}
 
-	// linken Unterbaum setzen
 	public void setLeft(AArray<K, V> a) {
 		root.left = a.root;
 	}
@@ -354,10 +324,10 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		public Node getLeft() {
 			return left;
 		}
-		
+
 		@Override
 		public String toString() {
-		    return key+"="+value+", ";
+			return key + "=" + value + hash + ", ";
 		}
 
 		public int compareTo(Node k) {
@@ -370,7 +340,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			} else {
 				return 1;
 			}
-			
+
 		}
 
 		@Override
@@ -390,7 +360,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			AArray<K,V> other = (AArray<K,V>) obj;
+			AArray<K, V> other = (AArray<K, V>) obj;
 			if (root == null) {
 				if (other.root != null)
 					return false;

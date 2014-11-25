@@ -260,35 +260,32 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				putAll(b.getRightTree());
 			}
 		}
-
-		// BiConsumer<K,V> bi = (x,y) ->{
-		// put(b.root.getKey(),b.root.getValue());
-		//
-		// };
-		// forEach(bi);
 	}
 
 	@Override
 	public void extractAll(AArray<K, V> b) {
-		// TODO Auto-generated method stub
 		b.putAll(this);
 	}
-
+	
+	
 	@Override
-	public void map(BiFunction<K, V, AArray<K, V>> b) {	
-		if (root == null) {
-			return;
-		} else {
-			b.apply(root.key, root.value);
-		}
-		if (root.left != null) {
-			getLeftTree().map(b);
-		}
-		if (root.right != null) {
-			getRightTree().map(b);
-		}
+	public AArray<K,V> map(BiFunction<K, V, V> bi) {	
+		AArray<K, V> tree = new AArray<K, V>();
+		return this.map(this.root, bi, tree);
 	}
 
+
+	public AArray<K, V> map(Node n, BiFunction<K,V,V> bi, AArray<K,V> tree){
+		if (n != null){
+			tree.put(n.getKey(), bi.apply(n.getKey(), n.getValue()));
+		
+		this.map(n.left,bi,tree);
+		this.map(n.right,bi,tree);
+		}
+		return tree;
+	}
+	
+	
 	public AArray<K, V> getLeftTree() {
 		AArray<K, V> a = new AArray<K, V>();
 		a.root = root.left;

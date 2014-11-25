@@ -19,5 +19,5 @@ public interface AssociativeArray <K,V> {
 		public void update(K k,V v);
 		public void forEach(BiConsumer <K,V> b);
 		public void extractAll(AArray<K,V> b);//noch kein Plan
-		public void map(BiFunction<K, V, AArray <K, V>> b);
+		public AArray<K,V> map(BiFunction<K, V,V> b);
 	}

@@ -9,10 +9,17 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	Node root;
 
+	/**
+	 * leerer Baum
+	 */
 	public AArray() {
 		this.root = null;
 	}
 
+	/**
+	 * @param k ist Schluessel
+	 * @param v ist Wert
+	 */
 	public AArray(K k, V v) {
 		root = new Node(k, v, null, null);
 
@@ -182,6 +189,14 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return count(root);
 	}
 
+	/**
+	 * geht einmal den ganzen Baum durch und 
+	 * zaehlt immer eins hoch, wenn sie 
+	 * zu einem neuen Knoten wechselt.
+	 * 
+	 * @param node
+	 * @return Anzahl der Knoten im Baum
+	 */
 	public int count(Node node) {
 		if (node == null) {
 			return 0;
@@ -233,6 +248,15 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return this.map(this.root, bi, tree);
 	}
 
+	/**
+	 * Hilfsmethode fuer map.
+	 * geht den uebergebenen Baum durch.
+	 * 
+	 * @param n
+	 * @param bi
+	 * @param tree
+	 * @return einen Baum
+	 */
 	public AArray<K, V> map(Node n, BiFunction<K, V, V> bi, AArray<K, V> tree) {
 		if (n != null) {
 			tree.put(n.getKey(), bi.apply(n.getKey(), n.getValue()));
@@ -248,6 +272,16 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return "{" + ausgabe(root) + "}";
 	}
 
+	/**
+	 * Hilfsmethode fuer die toString-Mthode.
+	 * Speichert jeden Schluessel und den 
+	 * zugehoerigen Wert in einem String
+	 * um diese dann an die toString
+	 * weiter zu geben.
+	 * 
+	 * @param n
+	 * @return String fuer die toString-Methode
+	 */
 	public String ausgabe(Node n) {
 		String str = "";
 
@@ -260,6 +294,11 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 	}
 
+	/**
+	 * root wird neu Initialisiert und ist nun der linke Kindesknoten.
+	 * 
+	 * @return LinkenUnterBaum
+	 */
 	public AArray<K, V> getLeftTree() {
 		AArray<K, V> a = new AArray<K, V>();
 		a.root = root.left;
@@ -267,19 +306,17 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		return a;
 	}
 
-	public void setLeft(AArray<K, V> a) {
-		root.left = a.root;
-	}
-
+	/**
+	 * So wie getLeftTree nur mit rechten Kindesknoten.
+	 * 
+	 * @return RechtenUnterBaum
+	 */
 	public AArray<K, V> getRightTree() {
 		AArray<K, V> a = new AArray<K, V>();
 		a.root = root.right;
 		return a;
 	}
 
-	public void setRight(AArray<K, V> a) {
-		root.right = a.root;
-	}
 
 	private class Node {
 		public Node left;
@@ -288,6 +325,12 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		private V value;
 		private int hash;
 
+		/**
+		 * @param key ist der Schluessel
+		 * @param value ist der Wert
+		 * @param left ist der linke Kindesknoten
+		 * @param right ist der rechte Kindesknoten
+		 */
 		public Node(K key, V value, Node left, Node right) {
 			this.key = key;
 			this.value = value;
@@ -307,7 +350,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		public V getValue() {
 			return value;
 		}
-
+		
 		public Node getRight() {
 			return right;
 		}
@@ -321,6 +364,20 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 			return key + "=" + value + hash + ", ";
 		}
 
+		/**
+		 * Vergleicht die Hashcodes des aktuellen
+		 * Knotens und des uebergebenem Knoten.
+		 * wenn der aktuelle Knoten einen kleineren Hashcode
+		 * als der uebergebene Knoten hat wird
+		 * -1 ausgegebenen.
+		 * Bei gleichem Hashcode kommt 0 raus
+		 * und wenn der Hashcode, des aktuellen Knoten
+		 * groeﬂer ist als der Hashcode des 
+		 * uebergebenen Knoten kommt 1 raus.
+		 * 
+		 * @param k
+		 * @return -1,0,1
+		 */
 		public int compareTo(Node k) {
 			if (hash <= k.hashCode()) {
 				if (hash < k.hashCode()) {

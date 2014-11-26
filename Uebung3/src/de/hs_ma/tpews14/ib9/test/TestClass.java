@@ -1,10 +1,12 @@
+package de.hs_ma.tpews14.ib9.test;
 import static org.junit.Assert.*;
 
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 import org.junit.Test;
 
-import de.hs_ma.tpews14.ib9.Objects.AArray;
+import de.hs_ma.tpews14.ib9.Objects.Tree;
 import de.hs_ma.tpews14.ib9.Objects.Dictionary;
 import de.hs_ma.tpews14.ib9.Objects.IntegerAssociativeArray;
 import de.hs_ma.tpews14.ib9.Objects.StringAssociativeArray;
@@ -15,8 +17,9 @@ public class TestClass {
 	public void test() {
 
 		StringAssociativeArray a = new StringAssociativeArray();
-		AArray<String, String> tree = new AArray<>();
+		Tree<String, String> tree = new Tree<>();
 		IntegerAssociativeArray intTree = new IntegerAssociativeArray();
+		IntegerAssociativeArray intTree2 = new IntegerAssociativeArray();
 		Dictionary dict = new Dictionary();
 		StringAssociativeArray b = new StringAssociativeArray();
 
@@ -40,8 +43,8 @@ public class TestClass {
 		tree.put("lars", "Student");
 		tree.put("ina", "Polizistin");
 		tree.put("kathi", "Koch");
-
-	
+		
+	    
 		assertEquals(true, a.containsKey("christoph"));
 		assertEquals(false, a.containsKey("Jens"));
 
@@ -79,7 +82,15 @@ public class TestClass {
 		assertEquals(true, tree.containsKey("peter"));
 		assertEquals(true, tree.containsKey("otto"));
 		assertEquals(true, tree.containsKey("christoph"));
+		
+		
+		BiConsumer<Integer, Integer> biCons = (x,y)->{
+			intTree.forEach((key, value) -> intTree2.put(key, value));
+		};
+		intTree.forEach(biCons);
+		assertEquals(intTree.toString(), intTree2.toString());
 
+		
 		BiFunction<String, String, String> bifunk = (x, y) -> {
 			y = y + "a";
 

@@ -2,9 +2,8 @@ package de.hs_ma.tpews14.ib9.Objects;
 
 import java.util.LinkedList;
 import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
 
-public class Dictionary extends AArray<String, String> {
+public class Dictionary extends StringAssociativeArray<String> {
 
 	
 	public Dictionary(String k,String v){

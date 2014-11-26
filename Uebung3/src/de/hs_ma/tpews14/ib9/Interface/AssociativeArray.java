@@ -3,7 +3,7 @@ package de.hs_ma.tpews14.ib9.Interface;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
-import de.hs_ma.tpews14.ib9.Objects.AArray;
+import de.hs_ma.tpews14.ib9.Objects.Tree;
 
 public interface AssociativeArray <K,V> {
 
@@ -67,7 +67,7 @@ public interface AssociativeArray <K,V> {
 		 *  
 		 * @param b
 		 */
-		public void putAll(AArray <K,V> b);
+		public void putAll(Tree <? extends K,? extends V> b);
 		
 		/**
 		 * Durchsucht den Baum nach einem Key und löscht diesen dann.
@@ -111,7 +111,7 @@ public interface AssociativeArray <K,V> {
 		 * 
 		 * @param b
 		 */
-		public void extractAll(AArray<K,V> b);
+		public void extractAll(Tree<K,V> b);
 		
 		/**
 		 * geht den Baum durch und wird durch einen Lambdaausdruck
@@ -120,5 +120,5 @@ public interface AssociativeArray <K,V> {
 		 * @param b
 		 * @return einen neuen Wert der durch den Lambdaausdruck veraendert wurde
 		 */
-		public AArray<K,V> map(BiFunction<K, V,V> b);
+		public Tree<K,V> map(BiFunction<K, V,V> b);
 	}

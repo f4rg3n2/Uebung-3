@@ -1,10 +1,10 @@
 package de.hs_ma.tpews14.ib9.Objects;
 
-public class StringAssociativeArray extends AArray<String, String> {
+public class StringAssociativeArray<V> extends Tree<String, V> {
 	public StringAssociativeArray(){
 		super();
 	}
-	public StringAssociativeArray(String k, String v){
+	public StringAssociativeArray(String k, V v){
 		super(k,v);
 	}
 }

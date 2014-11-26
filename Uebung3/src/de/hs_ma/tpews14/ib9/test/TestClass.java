@@ -16,12 +16,12 @@ public class TestClass {
 	@Test
 	public void test() {
 
-		StringAssociativeArray a = new StringAssociativeArray();
+		StringAssociativeArray<String> a = new StringAssociativeArray<>();
 		Tree<String, String> tree = new Tree<>();
-		IntegerAssociativeArray intTree = new IntegerAssociativeArray();
-		IntegerAssociativeArray intTree2 = new IntegerAssociativeArray();
+		IntegerAssociativeArray<Integer> intTree = new IntegerAssociativeArray<>();
+		IntegerAssociativeArray<Integer> intTree2 = new IntegerAssociativeArray<>();
 		Dictionary dict = new Dictionary();
-		StringAssociativeArray b = new StringAssociativeArray();
+		StringAssociativeArray<String> b = new StringAssociativeArray<>();
 
 		intTree.put(23, 23545);
 		intTree.put(3, 5);
@@ -97,7 +97,9 @@ public class TestClass {
 			return y;
 		};
 
+		
 		assertEquals(false, a.map(bifunk).equals(a));
+
 
 		assertEquals(true, intTree.containsKey(23));
 		assertEquals(true, intTree.containsKey(3));
@@ -113,6 +115,7 @@ public class TestClass {
 		assertArrayEquals(sportarten, dict.keys());
 		assertArrayEquals(sportkategorie, dict.values());
 		
+
 		 a.clear();
 		 assertEquals(a, a);
 

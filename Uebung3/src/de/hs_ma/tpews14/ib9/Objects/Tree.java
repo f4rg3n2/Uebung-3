@@ -5,14 +5,14 @@ import java.util.function.BiFunction;
 
 import de.hs_ma.tpews14.ib9.Interface.AssociativeArray;
 
-public class AArray<K, V> implements AssociativeArray<K, V> {
+public class Tree<K, V> implements AssociativeArray<K, V> {
 
 	Node root;
 
 	/**
 	 * leerer Baum
 	 */
-	public AArray() {
+	public Tree() {
 		this.root = null;
 	}
 
@@ -20,7 +20,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	 * @param k ist Schluessel
 	 * @param v ist Wert
 	 */
-	public AArray(K k, V v) {
+	public Tree(K k, V v) {
 		root = new Node(k, v, null, null);
 
 	}
@@ -129,7 +129,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void putAll(AArray<K, V> b) {
+	public void putAll(Tree<? extends K,? extends V> b) {
 		b.forEach((key, value) -> this.put(key, value));
 	}
 
@@ -140,8 +140,8 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 		if (root == null) {
 			return null;
 		}
-		AArray<K, V> leftSubTree = this.getLeftTree();
-		AArray<K, V> rightSubTree = this.getRightTree();
+		Tree<K, V> leftSubTree = this.getLeftTree();
+		Tree<K, V> rightSubTree = this.getRightTree();
 
 		Node node = new Node(k, null, null, null);
 		switch (node.compareTo(root)) {
@@ -238,13 +238,13 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	}
 
 	@Override
-	public void extractAll(AArray<K, V> b) {
+	public void extractAll(Tree<K, V> b) {
 		b.putAll(this);
 	}
 
 	@Override
-	public AArray<K, V> map(BiFunction<K, V, V> bi) {
-		AArray<K, V> tree = new AArray<K, V>();
+	public Tree<K, V> map(BiFunction<K, V, V> bi) {
+		Tree<K, V> tree = new Tree<K, V>();
 		return this.map(this.root, bi, tree);
 	}
 
@@ -257,7 +257,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	 * @param tree
 	 * @return einen Baum
 	 */
-	public AArray<K, V> map(Node n, BiFunction<K, V, V> bi, AArray<K, V> tree) {
+	public Tree<K, V> map(Node n, BiFunction<K, V, V> bi, Tree<K, V> tree) {
 		if (n != null) {
 			tree.put(n.getKey(), bi.apply(n.getKey(), n.getValue()));
 
@@ -299,8 +299,8 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	 * 
 	 * @return LinkenUnterBaum
 	 */
-	public AArray<K, V> getLeftTree() {
-		AArray<K, V> a = new AArray<K, V>();
+	public Tree<K, V> getLeftTree() {
+		Tree<K, V> a = new Tree<K, V>();
 		a.root = root.left;
 
 		return a;
@@ -311,8 +311,8 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 	 * 
 	 * @return RechtenUnterBaum
 	 */
-	public AArray<K, V> getRightTree() {
-		AArray<K, V> a = new AArray<K, V>();
+	public Tree<K, V> getRightTree() {
+		Tree<K, V> a = new Tree<K, V>();
 		a.root = root.right;
 		return a;
 	}
@@ -361,7 +361,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 
 		@Override
 		public String toString() {
-			return key + "=" + value + hash + ", ";
+			return key + "=" + value+ ", ";
 		}
 
 		/**
@@ -408,7 +408,7 @@ public class AArray<K, V> implements AssociativeArray<K, V> {
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			AArray<K, V> other = (AArray<K, V>) obj;
+			Tree<K, V> other = (Tree<K, V>) obj;
 			if (root == null) {
 				if (other.root != null)
 					return false;

@@ -1,11 +1,11 @@
 package de.hs_ma.tpews14.ib9.Objects;
 
-public class IntegerAssociativeArray extends AArray<Integer, Integer>{
+public class IntegerAssociativeArray<K> extends Tree<K, Integer>{
 	
 	public IntegerAssociativeArray(){
 		super();
 	}
-	public IntegerAssociativeArray(int k, int v){
+	public IntegerAssociativeArray(K k, int v){
 		super(k,v);
 	}
 	
